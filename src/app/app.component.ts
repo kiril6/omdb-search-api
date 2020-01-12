@@ -48,6 +48,9 @@ export class AppComponent {
 
   //to show more details when pressed
   showDetails(id, imdbID) {
+    for (let i = 0; i <= this.results.length; i++) {
+      this.moreDetails[i] = false;
+    }
     this.moreDetails[id] = true;
     this.getDetails(imdbID)
     if (this.moreDetails[id] === true) {
