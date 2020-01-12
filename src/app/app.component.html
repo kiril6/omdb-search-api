@@ -1,0 +1,55 @@
+<header class="cmp-header">
+    <div class="cmp-header__logo">
+        <a href="#" (click)="reload()"><img src="https://via.placeholder.com/200x80/000/FFF?text=OMDB Search"></a>
+    </div>
+
+    <div class="cmp-header__search">
+        <span>Search a movie</span> <input type="text" (keydown.enter)="search()" [(ngModel)]="this.searchField"
+            placeholder="Search..." (input)="onSearchChange($event.target.value)" /> <button
+            [disabled]="this.searchField === ''" (click)="search()" type="button"><i class="fa fa-search"
+                aria-hidden="true"></i> search</button>
+    </div>
+</header>
+
+<div class="cmp-content">
+    <div *ngIf="this.searchField === ''" class="cmp-content__welcome">
+        <p>Welcome To the OMDB Search. Search something in the bar above...</p>
+    </div>
+
+    <div *ngIf="this.results">
+        <div class="cmp-content__results">
+            <div class="cmp-content__results--item" *ngFor="let result of results; let i = index"
+                [style.flex-basis]="this.moreDetails[i] ? '100%' : ''" [style.order]="this.moreDetails[i] ? '-1' : ''"
+                [ngClass]="this.moreDetails[i] ? 'cmp-content__results--item-active' : ''">
+
+                <div class="cmp-content__results--poster">
+                    <img [src]="result.Poster" />
+                </div>
+                <div class="cmp-content__results--data">
+                    <h4> {{ result.Title }}</h4>
+
+                    <div *ngIf="this.resultDetails && this.moreDetails[i]===true"
+                        class="cmp-content__results--data-extra">
+                        <div>Plot: <br> {{ this.resultDetails.Plot }}</div><br>
+                        <div>Actors: <br>{{ this.resultDetails.Actors }}</div><br>
+                        <div>Rating: <br>{{ this.resultDetails.imdbRating }}</div>
+                    </div>
+                    <div class="cmp-content__results--data-footer">
+                        <div>Year: {{ result.Year }}</div>
+                        <div>
+                            <button [hidden]="this.moreDetails[i]" (click)="showDetails(i, result.imdbID)"
+                                type="button"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!this.results && this.searched" class="cmp-content__no-results">
+            there were no results from the search criteria!
+        </div>
+
+    </div>
+
+</div>
