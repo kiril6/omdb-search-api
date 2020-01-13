@@ -39,7 +39,7 @@ export class AppComponent {
         this.moreDetails[i] = false;
       }
     }
-    if (this.searchField.length > 0) {
+    if (this.searchField.length > 1) {
       this.getMovies(this.searchField);
       this.searched = true;
     }
