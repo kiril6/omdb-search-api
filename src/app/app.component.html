@@ -6,7 +6,7 @@
     <div class="cmp-header__search">
         <span>Search a movie</span> <input type="text" (keydown.enter)="search()" [(ngModel)]="this.searchField"
             placeholder="Search..." (input)="onSearchChange($event.target.value)" /> <button
-            [disabled]="this.searchField === ''" (click)="search()" type="button"><i class="fa fa-search"
+            [disabled]="this.searchField.length < 2 " (click)="search()" type="button"><i class="fa fa-search"
                 aria-hidden="true"></i> search</button>
     </div>
 </header>
@@ -16,7 +16,7 @@
         <p>Welcome To the OMDB Search. Search something in the bar above...</p>
     </div>
 
-    <div *ngIf="this.results">
+    <div *ngIf="this.results && this.searchField !== '' && this.searched; else notShow">
         <div class="cmp-content__results">
             <div class="cmp-content__results--item" *ngFor="let result of results; let i = index"
                 [style.flex-basis]="this.moreDetails[i] ? '100%' : ''" [style.order]="this.moreDetails[i] ? '-1' : ''"
@@ -46,10 +46,10 @@
             </div>
         </div>
 
-        <div *ngIf="!this.results && this.searched" class="cmp-content__no-results">
+    </div>
+    <ng-template #notShow>
+        <div *ngIf="this.searchField !=='' && !this.results && this.searched" class="cmp-content__no-results">
             there were no results from the search criteria!
         </div>
-
-    </div>
-
+    </ng-template>
 </div>

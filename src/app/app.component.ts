@@ -34,15 +34,21 @@ export class AppComponent {
 
   //when search value is entered
   search() {
-    this.getMovies(this.searchField);
-    this.searched=true;
+    if (this.results) {
+      for (let i = 0; i <= this.results.length; i++) {
+        this.moreDetails[i] = false;
+      }
+    }
+    if (this.searchField.length > 0) {
+      this.getMovies(this.searchField);
+      this.searched = true;
+    }
   }
 
   //registering input field as typing
-  onSearchChange(searchValue: string): void {  
-    if(searchValue==='') {
+  onSearchChange(searchValue: string): void {
+    if (searchValue === '') {
       this.resetActiveSearch();
-      this.searched = false;
     }
   }
 
@@ -73,6 +79,7 @@ export class AppComponent {
       this.results = null;
       this.resultDetails = null;
     }
+    this.searched = false;
   }
 
 }
