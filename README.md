@@ -7,3 +7,6 @@ Angular version 8.3.22
 Node version 12.14.0
 
 Live demo url: http://portfolio.delovski.net/projects/angular/omdb-search/
+
+
+buy me a coffee buymeacoff.ee/ec1Pdqk
